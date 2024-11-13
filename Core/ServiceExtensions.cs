@@ -19,6 +19,7 @@ namespace Core
             services.AddScoped<ICommentService, CommentService >();
             services.AddScoped<INewsService, NewsService >();
             services.AddScoped<IJwtService, JwtService>();
+            services.AddScoped<IAccountsService, AccountsService>();
 
             return services;
         }

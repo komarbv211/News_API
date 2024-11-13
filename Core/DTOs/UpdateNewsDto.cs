@@ -5,8 +5,11 @@
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public string FullText { get; set; } = string.Empty;
         public DateTime PublishedDate { get; set; }
-        public int AuthorId { get; set; }  
+        public int AuthorId { get; set; }
+        public int CategoryId { get; set; }
+        public string? Images { get; set; }
     }
 
 }

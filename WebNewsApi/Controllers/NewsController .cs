@@ -22,7 +22,7 @@ namespace WebNewsApi.Controllers
             return Ok(newsList);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetById/{id}")]
         public async Task<ActionResult<NewsDto>> GetNewsById(int id)
         {
             var news = await _newsService.GetNewsByIdAsync(id);
@@ -32,24 +32,21 @@ namespace WebNewsApi.Controllers
             return Ok(news);
         }
 
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<ActionResult> CreateNews([FromBody] CreateNewsDto createNewsDto)
         {
             await _newsService.CreateNewsAsync(createNewsDto);
             return Ok();
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateNews(int id, [FromBody] UpdateNewsDto updateNewsDto)
+        [HttpPut("Update")]
+        public async Task<ActionResult> UpdateNews([FromBody] UpdateNewsDto updateNewsDto)
         {
-            if (id != updateNewsDto.Id)
-                return BadRequest();
-
             await _newsService.UpdateNewsAsync(updateNewsDto);
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteNews(int id)
         {
             await _newsService.DeleteNewsAsync(id);

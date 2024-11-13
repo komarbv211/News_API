@@ -2,10 +2,13 @@
 {
     public class CreateNewsDto
     {
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public DateTime PublishedDate { get; set; }
-        public int AuthorId { get; set; } 
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string FullText { get; set; } = string.Empty;
+        public DateTime PublishDate { get; set; }
+        public int CategoryId { get; set; }
+        public int AuthorId { get; set; }
+        public string? Images { get; set; }
     }
 
 }
