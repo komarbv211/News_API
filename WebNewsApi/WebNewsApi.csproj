@@ -16,6 +16,9 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+		<PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.2.0" />
+		<PackageReference Include="Microsoft.IdentityModel.Protocols" Version="8.2.0" />
+		<PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="8.2.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Core\Core.csproj" />
