@@ -20,6 +20,10 @@ namespace Core
             services.AddScoped<INewsService, NewsService >();
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IAccountsService, AccountsService>();
+            services.AddScoped<ISearchRequestService, SearchRequestService>();
+            services.AddScoped<IStatisticsService, StatisticsService>();
+            services.AddScoped<IUserFavoriteNewsService, UserFavoriteNewsService>();
+            services.AddScoped<IUserService, UserService > ();
 
             return services;
         }
