@@ -96,7 +96,8 @@ namespace WebNewsApi.ServiceExtensions
             {
                 options.AddPolicy("AllowFrontend", policy =>
                 {
-                    policy.WithOrigins("http://localhost:4200", "http://localhost:5173", "https://white-mushroom-080d17203.5.azurestaticapps.net")
+                    //policy.WithOrigins("http://localhost:4200", "http://localhost:5173", "https://white-mushroom-080d17203.5.azurestaticapps.net")
+                    policy.AllowAnyOrigin()
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                 });

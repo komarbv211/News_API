@@ -33,9 +33,10 @@ namespace WebNewsApi.Controllers
         {
             return Ok(await accountsService.RefreshTokens(tokens));
         }
-        [HttpPost("logout")]
-        public async Task<IActionResult> Logout()
+        [HttpDelete("logout")]
+        public async Task<IActionResult> Logout([FromBody] string refreshToken)
         {
+            await accountsService.Logout(refreshToken);
             return Ok();
         }
     }
