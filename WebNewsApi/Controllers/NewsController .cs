@@ -33,14 +33,14 @@ namespace WebNewsApi.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<ActionResult> CreateNews([FromBody] CreateNewsDto createNewsDto)
+        public async Task<ActionResult> CreateNews([FromForm] CreateNewsDto createNewsDto)
         {
             await _newsService.CreateNewsAsync(createNewsDto);
             return Ok();
         }
 
         [HttpPut("Update")]
-        public async Task<ActionResult> UpdateNews([FromBody] UpdateNewsDto updateNewsDto)
+        public async Task<ActionResult> UpdateNews([FromForm] UpdateNewsDto updateNewsDto)
         {
             await _newsService.UpdateNewsAsync(updateNewsDto);
             return NoContent();

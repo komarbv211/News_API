@@ -24,6 +24,7 @@ namespace Core
             services.AddScoped<IStatisticsService, StatisticsService>();
             services.AddScoped<IUserFavoriteNewsService, UserFavoriteNewsService>();
             services.AddScoped<IUserService, UserService > ();
+            services.AddScoped<IFileService, AzureBlobService>();
 
             return services;
         }

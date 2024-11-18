@@ -1,4 +1,6 @@
-﻿namespace Core.DTOs
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Core.DTOs
 {
     public class CreateNewsDto
     {
@@ -8,7 +10,7 @@
         public DateTime PublishDate { get; set; }
         public int CategoryId { get; set; }
         public int AuthorId { get; set; }
-        public string? Images { get; set; }
+        public IFormFile? Images { get; set; }
     }
 
 }

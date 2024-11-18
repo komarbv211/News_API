@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Ardalis.Specification;
+using AutoMapper;
 using Core.DTOs;
 using Core.Interfaces;
 using Data.Entities;
@@ -9,11 +10,14 @@ namespace Core.Services
     {
         private readonly IRepository<News> _repository;
         private readonly IMapper _mapper;
+        private readonly IFileService _fileService;
 
-        public NewsService(IRepository<News> repository, IMapper mapper)
+
+        public NewsService(IRepository<News> repository, IMapper mapper, IFileService fileService)
         {
             _repository = repository;
             _mapper = mapper;
+            _fileService = fileService;
         }
 
         public async Task<IEnumerable<NewsDto>> GetAllNewsAsync()
@@ -38,6 +42,9 @@ namespace Core.Services
         {
             // Використовуємо AutoMapper для перетворення CreateNewsDto на News
             var news = _mapper.Map<News>(createNewsDto);
+
+            if (createNewsDto.Images != null)
+                news.Images = await _fileService.SaveProductImage(createNewsDto.Images);
             await _repository.Insert(news);
             await _repository.Save();
         }
@@ -45,14 +52,30 @@ namespace Core.Services
         public async Task UpdateNewsAsync(UpdateNewsDto updateNewsDto)
         {
             var news = await _repository.GetByID(updateNewsDto.Id);
-            if (news != null)
+
+            if (news == null)
             {
-                // Оновлюємо новину, використовуючи AutoMapper
-                _mapper.Map(updateNewsDto, news);
-                await _repository.Update(news);
-                await _repository.Save();
+                throw new KeyNotFoundException($"News with ID {updateNewsDto.Id} not found.");
             }
+
+            string? oldImagePath = news.Images;
+
+            _mapper.Map(updateNewsDto, news);
+
+            if (updateNewsDto.Images != null)
+            {
+                news.Images = await _fileService.SaveProductImage(updateNewsDto.Images);
+
+                if (!string.IsNullOrEmpty(oldImagePath))
+                {
+                    await _fileService.DeleteProductImage(oldImagePath);
+                }
+            }
+
+            await _repository.Update(news);
+            await _repository.Save();
         }
+
 
         public async Task DeleteNewsAsync(int id)
         {
