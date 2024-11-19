@@ -79,6 +79,18 @@ namespace Core.Services
 
         public async Task DeleteNewsAsync(int id)
         {
+            var news = await _repository.GetByID(id);
+            if (news == null)
+            {
+                throw new KeyNotFoundException($"News with ID {id} not found.");
+            }
+
+            // Видаляємо файл зображення, якщо він існує
+            if (!string.IsNullOrEmpty(news.Images))
+            {
+                await _fileService.DeleteProductImage(news.Images);
+            }
+
             await _repository.Delete(id);
             await _repository.Save();
         }
