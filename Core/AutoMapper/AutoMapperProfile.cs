@@ -11,7 +11,8 @@ namespace Core.AutoMapper
         {
             CreateMap<NewsDto, News>().ReverseMap();
             CreateMap<CreateNewsDto, News>();
-            CreateMap<UpdateNewsDto, News>().ReverseMap();
+            CreateMap<UpdateNewsDto, News>()
+                .ForMember(dest => dest.Images, opt => opt.Ignore());
             CreateMap<CommentDto, Comment>().ReverseMap();
             CreateMap<AuthorDto, Author>().ReverseMap();
             CreateMap<CreateAuthorDto, Author>();

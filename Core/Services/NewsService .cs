@@ -68,13 +68,17 @@ namespace Core.Services
 
                 if (!string.IsNullOrEmpty(oldImagePath))
                 {
-                    await _fileService.DeleteProductImage(oldImagePath);
+                    await _fileService.DeleteNewsImage(oldImagePath);
                 }
             }
-
+            else
+            {
+                news.Images = oldImagePath;
+            }
             await _repository.Update(news);
             await _repository.Save();
         }
+
 
 
         public async Task DeleteNewsAsync(int id)
@@ -85,10 +89,9 @@ namespace Core.Services
                 throw new KeyNotFoundException($"News with ID {id} not found.");
             }
 
-            // Видаляємо файл зображення, якщо він існує
             if (!string.IsNullOrEmpty(news.Images))
             {
-                await _fileService.DeleteProductImage(news.Images);
+                await _fileService.DeleteNewsImage(news.Images);
             }
 
             await _repository.Delete(id);

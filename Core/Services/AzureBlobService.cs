@@ -50,28 +50,33 @@ namespace Core.Services
             }
         }
 
-        public async Task DeleteProductImage(string path)
+        public async Task DeleteNewsImage(string path)
         {
             try
             {
                 var client = new BlobContainerClient(connectionString, containerName);
-                var blob = client.GetBlobClient(path);
+
+                // Витягуємо ім'я файлу з повного URL, якщо path є URL
+                string fileName = Path.GetFileName(new Uri(path).AbsolutePath);
+
+                var blob = client.GetBlobClient(fileName);
 
                 if (await blob.ExistsAsync())
                 {
                     await blob.DeleteIfExistsAsync();
-                    _logger.LogInformation($"File deleted successfully: {path}");  
+                    _logger.LogInformation($"File deleted successfully: {fileName}");
                 }
                 else
                 {
-                    _logger.LogWarning($"File not found: {path}"); 
+                    _logger.LogWarning($"File not found: {fileName}");
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Failed to delete file: {path}");  
+                _logger.LogError(ex, $"Failed to delete file: {path}");
                 throw new InvalidOperationException($"Failed to delete file from Azure Blob Storage: {path}", ex);
             }
         }
+
     }
 }
