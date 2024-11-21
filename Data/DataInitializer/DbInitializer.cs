@@ -10,6 +10,7 @@ namespace Data.DataInitializer
     public static class Roles
     {
         public const string ADMIN = "admin";
+        public const string AUTHOR = "author";
         public const string USER = "user";
     }
 

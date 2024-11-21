@@ -11,7 +11,7 @@ namespace Core.DTOs
         public DateTime PublishedDate { get; set; }
         public int AuthorId { get; set; }
         public int CategoryId { get; set; }
-        public IFormFile? Images { get; set; }
+        public IFormFile? Images { get; set; } = null;
     }
 
 }
