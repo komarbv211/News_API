@@ -1,5 +1,8 @@
 ﻿using Core.DTOs;
 using Core.Interfaces;
+using Data.DataInitializer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebNewsApi.Controllers
@@ -47,6 +50,7 @@ namespace WebNewsApi.Controllers
         }
 
         [HttpDelete("Delete/{id}")]
+        [Authorize(Roles = Roles.ADMIN, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> DeleteNews(int id)
         {
             await _newsService.DeleteNewsAsync(id);
