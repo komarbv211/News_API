@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Core.DTOs;
+using Core.DTOs.DtoSpec;
 using Core.Interfaces;
+using Core.Specifications;
 using Data.Entities;
 
 namespace Core.Services
@@ -27,12 +29,24 @@ namespace Core.Services
             var category = await _categoryRepository.GetByID(id);
             return _mapper.Map<CategoryDto>(category);
         }
-/*        public async Task<CategoryDto> GetCategorySpecsByIdAsync(int id)
+        public async Task<CategoryWithNewsDto> GetCategorySpecsByIdAsync(int id)
         {
-            var category = await _categoryRepository.GetItemBySpec(new CategorySpecs.ById(id));
-            return _mapper.Map<CategoryDto>(category);
+            var category = await _categoryRepository.GetItemBySpec(new CategorySpecification.ById(id));
+
+            if (category == null)
+            {
+                throw new KeyNotFoundException($"Category with id {id} not found.");
+            }
+
+            var categoryDto = _mapper.Map<CategoryWithNewsDto>(category);
+
+            if (category.News == null || !category.News.Any())
+            {
+                throw new KeyNotFoundException($"News for category with id {id} not found.");
+            }
+
+            return categoryDto;
         }
-*/
         public async Task CreateCategoryAsync(CreateCategoryDto createCategoryDto)
         {
             var category = _mapper.Map<Category>(createCategoryDto);

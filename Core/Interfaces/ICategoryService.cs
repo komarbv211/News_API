@@ -1,4 +1,5 @@
 ﻿using Core.DTOs;
+using Core.DTOs.DtoSpec;
 
 namespace Core.Interfaces
 {
@@ -8,7 +9,7 @@ namespace Core.Interfaces
         Task<CategoryDto> GetCategoryByIdAsync(int id);
         Task CreateCategoryAsync(CreateCategoryDto createCategoryDto); 
         Task UpdateCategoryAsync(UpdateCategoryDto updateCategoryDto); 
-        //Task DeleteCategoryAsync(int id);
-        //Task<CategoryDto> GetCategorySpecsByIdAsync(int id);
+        Task DeleteCategoryAsync(int id);
+        Task<CategoryWithNewsDto> GetCategorySpecsByIdAsync(int id);
     }
 }

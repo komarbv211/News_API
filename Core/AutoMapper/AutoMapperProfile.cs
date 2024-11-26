@@ -2,6 +2,7 @@
 using Data.Entities;
 using Core.DTOs;
 using Core.Dto.DtoAuthorization;
+using Core.DTOs.DtoSpec;
 
 namespace Core.AutoMapper
 {
@@ -30,6 +31,8 @@ namespace Core.AutoMapper
 
             CreateMap<RegisterDto, User>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email)); CreateMap<UserDto, User>();
+            CreateMap<Category, CategoryWithNewsDto>();
+
 
         }
     }

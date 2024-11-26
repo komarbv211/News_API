@@ -1,6 +1,9 @@
 ﻿using Core.DTOs;
+using Core.DTOs.DtoSpec;
+using Core.Exceptions;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace ServiceBookingPlatformApi.Controllers
 {
@@ -22,26 +25,30 @@ namespace ServiceBookingPlatformApi.Controllers
             return Ok(categories);
         }
 
-        [HttpGet("GetBy{id}")]
+        [HttpGet("GetBy/{id}")]
         public async Task<IActionResult> GetCategoryById(int id)
         {
             var category = await _categoryService.GetCategoryByIdAsync(id);
             if (category == null)
             {
-              //  throw new HttpException("Product not found!", HttpStatusCode.NotFound);
+              throw new HttpException("Product not found!", HttpStatusCode.NotFound);
             }
             return Ok(category);
         }
-        [HttpGet("GetByWithServices/{id}")]
+        [HttpGet("GetByWithNews/{id}")]
         public async Task<IActionResult> GetCategorySpecsByIdAsync(int id)
         {
-            var category = await _categoryService.GetCategoryByIdAsync(id);
-            if (category == null)
+            try
             {
-                //throw new HttpException("Product not found!", HttpStatusCode.NotFound);
+                var category = await _categoryService.GetCategorySpecsByIdAsync(id);
+                return Ok(category);
             }
-            return Ok(category);
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
         }
+
 
         [HttpPost("Create")]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryDto createCategoryDto)
@@ -57,16 +64,16 @@ namespace ServiceBookingPlatformApi.Controllers
             return NoContent();
         }
 
-        [HttpDelete("Delete{id}")]
+        [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             var category = await _categoryService.GetCategoryByIdAsync(id);
             if (category == null)
             {
-                //throw new HttpException("Product not found!", HttpStatusCode.NotFound);
+                throw new HttpException("Product not found!", HttpStatusCode.NotFound);
             }
 
-            //await _categoryService.DeleteCategoryAsync(id);
+            await _categoryService.DeleteCategoryAsync(id);
             return NoContent();
         }
     }
