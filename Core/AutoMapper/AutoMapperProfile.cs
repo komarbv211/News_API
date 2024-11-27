@@ -18,7 +18,7 @@ namespace Core.AutoMapper
             CreateMap<AuthorDto, Author>().ReverseMap();
             CreateMap<CreateAuthorDto, Author>();
             CreateMap<UpdateAuthorDto, Author>().ReverseMap();
-            CreateMap<UsersDto, User>().ReverseMap();
+            CreateMap<UserDto, User>().ReverseMap();
             CreateMap<StatisticsDto, Statistics>().ReverseMap();
             CreateMap<CategoryDto, Category>().ReverseMap();
             CreateMap<CreateCategoryDto, Category>();
