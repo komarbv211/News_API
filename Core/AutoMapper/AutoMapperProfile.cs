@@ -10,7 +10,10 @@ namespace Core.AutoMapper
     {
         public AutoMapperProfile()
         {
-            CreateMap<NewsDto, News>().ReverseMap();
+            CreateMap<NewsDto, News>();
+            CreateMap<News, NewsDto>()
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category!.Name))
+                .ForMember(dest => dest.AuthorName, opt => opt.MapFrom(src => src.Author!.FullName));
             CreateMap<CreateNewsDto, News>();
             CreateMap<UpdateNewsDto, News>()
                 .ForMember(dest => dest.Images, opt => opt.Ignore());

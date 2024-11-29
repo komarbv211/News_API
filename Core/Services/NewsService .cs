@@ -97,5 +97,12 @@ namespace Core.Services
             await _repository.Delete(id);
             await _repository.Save();
         }
+
+        public async Task<IEnumerable<NewsDto>> GetNewsBySpecificationAsync(ISpecification<News> specification)
+        {
+            var filteredNews = await _repository.GetListBySpec(specification);
+            return _mapper.Map<IEnumerable<NewsDto>>(filteredNews);
+        }
+
     }
 }

@@ -32,7 +32,6 @@ namespace Data
                 .WithMany(a => a.News)
                 .HasForeignKey(n => n.AuthorId);
 
-
             modelBuilder.Entity<Comment>()
                 .HasOne(c => c.News)
                 .WithMany(n => n.Comments)

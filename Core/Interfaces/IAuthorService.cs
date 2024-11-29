@@ -9,6 +9,8 @@ namespace Core.Interfaces
         Task CreateAuthorAsync(CreateAuthorDto authorDto);
         Task UpdateAuthorAsync(int id, UpdateAuthorDto authorDto);
         Task DeleteAuthorAsync(int id);
+        Task<int?> GetAuthorIdByUserIdAsync(string userId);
+        Task<IEnumerable<AuthorDto>> FilterAuthorsAsync(string? fullName, string? userId, bool includeNews);
     }
 
 }

@@ -1,5 +1,6 @@
 ﻿using Core.DTOs;
 using Core.Interfaces;
+using Core.Specifications;
 using Data.DataInitializer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -33,6 +34,24 @@ namespace WebNewsApi.Controllers
                 return NotFound();
 
             return Ok(news);
+        }
+        [HttpGet("Filter")]
+        public async Task<ActionResult<IEnumerable<NewsDto>>> GetFilteredNews(
+            string? keyword = null,
+            int? categoryId = null,
+            int? authorId = null,
+            DateTime? fromDate = null,
+            DateTime? toDate = null,
+            bool includeAuthor = false,
+            bool includeCategory = false,
+            bool includeComments = false)
+        {
+            var specification = new NewsSpecification(
+                keyword, categoryId, authorId, fromDate, toDate,
+                includeAuthor, includeCategory, includeComments);
+
+            var filteredNews = await _newsService.GetNewsBySpecificationAsync(specification);
+            return Ok(filteredNews);
         }
 
         [HttpPost("Create")]

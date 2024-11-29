@@ -14,7 +14,9 @@ namespace Core.DTOs
         public string FullText { get; set; }
         public DateTime PublishDate { get; set; }
         public int CategoryId { get; set; }
+        public string? CategoryName { get; set; }
         public int AuthorId { get; set; }
+        public string? AuthorName { get; set; }
         public string? Images { get; set; }
         public ICollection<CommentDto>? Comments { get; set; }
     }

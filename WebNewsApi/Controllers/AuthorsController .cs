@@ -59,5 +59,26 @@ namespace WebNewsApi.Controllers
             await _authorService.DeleteAuthorAsync(id);
             return NoContent();
         }
+
+        [HttpGet("GetByUserId/{userId}")]
+        public async Task<IActionResult> GetAuthorByUserId(string userId)
+        {
+            var authors = await _authorService.GetAuthorIdByUserIdAsync(userId);
+            if (authors == null)
+            {
+                return NotFound("No authors found for this user.");
+            }
+            return Ok(authors);
+        }
+
+        [HttpGet("Filter")]
+        public async Task<IActionResult> FilterAuthors(
+            [FromQuery] string? fullName = null,
+            [FromQuery] string? userId = null,
+            [FromQuery] bool includeNews = false)
+        {
+            var authors = await _authorService.FilterAuthorsAsync(fullName, userId, includeNews);
+            return Ok(authors);
+        }
     }
 }

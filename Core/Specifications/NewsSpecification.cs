@@ -8,6 +8,7 @@ namespace Core.Specifications
         public NewsSpecification(
             string? keyword = null,
             int? categoryId = null,
+            int? authorId = null,
             DateTime? fromDate = null,
             DateTime? toDate = null,
             bool includeAuthor = false,
@@ -24,6 +25,12 @@ namespace Core.Specifications
             if (categoryId.HasValue)
             {
                 Query.Where(n => n.CategoryId == categoryId.Value);
+            }
+
+            // Фільтр за автором
+            if (authorId.HasValue)
+            {
+                Query.Where(n => n.AuthorId == authorId.Value);
             }
 
             // Фільтр за датою публікації (від)
